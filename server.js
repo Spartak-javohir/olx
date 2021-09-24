@@ -16,4 +16,5 @@ async function server() {
   serve.use(express.static(path.join(__dirname, "src", "public")));
 }
 
-server.listen(PORT);
+server.set("view engine", "ejs");
+// server.listen(PORT);
