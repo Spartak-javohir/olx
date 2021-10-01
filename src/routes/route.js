@@ -1,5 +1,5 @@
-module.exports = (server) => {
-  server.get("/", (req, res) => {
+module.exports = (app) => {
+  app.get("/", (req, res) => {
     req.rendir("Home");
   });
 };
