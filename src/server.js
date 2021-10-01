@@ -3,14 +3,17 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 const databaseMiddleware = require("./middlewares/databaseMiddleware");
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 
-async function server(mode) {
+async function app(mode) {
   const server = express();
+  server.listen(PORT, (_) => {
+    console.log("Server Running " + PORT);
+  });
 
   try {
     server.use(express.json());
-    server.use(express.urlencoded());
+    server.use(express.urlencoded({ extended: true }));
 
     server.use(cookieParser);
     server.use(express.static(path.join(__dirname, "src", "public")));
@@ -27,4 +30,4 @@ async function server(mode) {
   }
 }
 
-module.exports = server;
+module.exports = app;
