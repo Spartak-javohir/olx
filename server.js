@@ -9,11 +9,15 @@ const PORT = process.env.PORT || 8080;
 async function server() {
   const server = express();
 
-  server.use(express.json());
-  server.use(express.urlencoded());
-  server.use(morgan("dev"));
-  server.use(cookieParser);
-  serve.use(express.static(path.join(__dirname, "src", "public")));
+  try {
+    server.use(express.json());
+    server.use(express.urlencoded());
+    server.use(morgan("dev"));
+    server.use(cookieParser);
+    serve.use(express.static(path.join(__dirname, "src", "public")));
+  } finally {
+    routes(server);
+  }
 }
 
 server.set("view engine", "ejs");
