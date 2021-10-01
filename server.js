@@ -21,4 +21,4 @@ async function server() {
 }
 
 server.set("view engine", "ejs");
-// server.listen(PORT);
+server.listen(PORT);
