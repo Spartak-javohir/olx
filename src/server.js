@@ -1,24 +1,28 @@
-require("dotenv").config();
-
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+const databaseMiddleware = require("./middlewares/databaseMiddleware");
 const PORT = process.env.PORT || 8080;
 
-async function server() {
+async function server(mode) {
   const server = express();
 
   try {
     server.use(express.json());
     server.use(express.urlencoded());
-    server.use(morgan("dev"));
+
     server.use(cookieParser);
-    serve.use(express.static(path.join(__dirname, "src", "public")));
+    server.use(express.static(path.join(__dirname, "src", "public")));
+    server.use(databaseMiddleware);
+
+    if (mode == "DEV") {
+      server.use(morgan("dev"));
+    }
+    // settings
+
+    server.set("view engine", "ejs");
   } finally {
     routes(server);
   }
 }
-
-server.set("view engine", "ejs");
-server.listen(PORT);
