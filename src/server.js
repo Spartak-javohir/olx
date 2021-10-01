@@ -5,29 +5,29 @@ const path = require("path");
 const databaseMiddleware = require("./middlewares/databaseMiddleware");
 const PORT = process.env.PORT || 8000;
 
-async function app(mode) {
-  const server = express();
-  server.listen(PORT, (_) => {
+async function server(mode) {
+  const app = express();
+  app.listen(PORT, (_) => {
     console.log("Server Running " + PORT);
   });
 
   try {
-    server.use(express.json());
-    server.use(express.urlencoded({ extended: true }));
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
 
-    server.use(cookieParser);
-    server.use(express.static(path.join(__dirname, "src", "public")));
-    server.use(databaseMiddleware);
+    app.use(cookieParser);
+    app.use(express.static(path.join(__dirname, "src", "public")));
+    app.use(databaseMiddleware);
 
     if (mode == "DEV") {
-      server.use(morgan("dev"));
+      app.use(morgan("dev"));
     }
     // settings
 
-    server.set("view engine", "ejs");
+    app.set("view engine", "ejs");
   } finally {
-    routes(server);
+    routes(app);
   }
 }
 
-module.exports = app;
+module.exports = server;
