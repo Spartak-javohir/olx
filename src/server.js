@@ -2,6 +2,7 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+const routes = require("./routes/route");
 const databaseMiddleware = require("./middlewares/databaseMiddleware");
 const PORT = process.env.PORT || 8000;
 
