@@ -26,3 +26,5 @@ async function server(mode) {
     routes(server);
   }
 }
+
+module.exports = server;
